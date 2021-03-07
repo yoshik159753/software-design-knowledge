@@ -1,0 +1,136 @@
+=== レイヤーパターン (design it! / 7章)
+
+[plantuml]
+----
+component [API] as api
+component [ビジネスロジック] as logic
+component [データアクセス] as access
+component [共通] as common
+
+api --> logic
+logic --> access
+api -> common
+logic -> common
+access -> common
+----
+
+[NOTE]
+====
+上記の図では *API はビジネスロジックと共通の使用を許可されている* ことを表す。
+====
+
+概要::
+ある関心事のまとまりに沿って整理された、個別の独立したレイヤー群にコードを分割することで、開発者たちはより良い共同作業を行うことができる。
+強み::
+保守性、移植性、再利用性、テスト容易性、設計時の修正容易性を促進する。
+概念的に実装が簡単。
+コード内でレイヤーを表現できる。
+弱み::
+各レイヤーは、最上位レイヤーと最下位レイヤーの間に追加の抽象を導入する。
+こうした追加の抽象は複雑さを増し、パフォーマンスに悪影響を与える可能性がある。
+レイヤーが多すぎるか抽象が漏れすぎると、開発者にとって開発が困難になる可能性がある。
+
+=== ポートとアダプターパターン
+
+[plantuml]
+----
+rectangle [他の利用可能なアダプター] {
+  component [イベントバス] as eventbus
+  component [AWACSアダプター] as awacs
+  component [mySQL] as mysql
+}
+
+component [AN/SPY-1アダプター] as anspy
+component [E-2Hawkeye\nシミュレーター] as hawkeye
+component [ファイルシステム] as filesystem
+component [核となる\nビジネスロジック] as logic #lightblue
+component [共有メモリ] as memory
+
+logic -- anspy
+logic -- hawkeye
+logic -[#blue]- filesystem
+memory -[#green]- logic
+----
+
+[NOTE]
+====
+[horizontal]
+黄色背景:: アダプター
+青背景:: レイヤー
+赤線:: センサー入力
+青線:: ロギング
+緑線:: イベントブロードキャスト
+====
+
+概要::
+アダプターをビルドや実行のタイミングで差し替えられるようにすることで、さまざまな構成のソフトウェアシステムを実現可能にする。
+強み::
+テスト容易性、保守容易性、および修正容易性を促進する。
+さまざまなチームがさまざまなレイヤーやアダプターを作成できる。
+弱み::
+実行時に使用されるアダプターを選択するためのメカニズムを開発する必要がある。
+セキュリティや信頼性などの実行品質は、アダプターによって決まる。
+サードパーティ性のアダプターは慎重に選択する必要がある。
+
+=== パイプとフィルター
+
+[plantuml]
+----
+component [ジョブソース] as source
+component [不良データの削除] as delete
+component [スコア] as score
+component [スコアのノーマライズ] as normalize
+component [CSVの作成] as csv
+component [保存] as save
+
+source -- delete
+delete -- score
+score -- normalize
+normalize -- csv
+csv -- save
+----
+
+[NOTE]
+====
+各コンポーネントがフィルターで、要素同士は TCP パイプを通して連結する。
+====
+
+概要::
+フィルターと呼ばれるコンポーネント群が一つの変換またはデータ操作を担当する。
+疎結合なフィルターは、さまざまな方法で再利用したり組み合わせたりすることができ、それによって新しいパイプラインを作成することができる。
+強み::
+パフォーマンス、再利用性、修正容易性を促進する。
+弱み::
+「パイプとフィルター」によるシステムは対話式ではないため、パターンを変更しない限りユーザーインターフェイスを含めることはできない。
+信頼性はパターンによって特に促進されないが、エラーケースを処理するためのフィルターを導入することによって設計できる。
+単純な実装では、多数のフィルターを並行して実行すると計算量が多くなるため、パフォーマンスが低下する可能性がある。
+
+=== サービス指向アーキテクチャ
+
+[plantuml]
+----
+component [WEB UI] as webui
+component [Service] as service
+component [Service Registry] as registry
+database DB as db
+component [設定管理] as config
+
+webui --> service
+webui --> registry
+
+service --> registry
+service --0 db
+service --> config
+----
+
+概要::
+独立したコンポーネントが特定の機能を提供するサービスとして実装されている。
+実行時にはサービスを組み合わせ、ソフトウェアシステムの動作を定義する。
+強み::
+相互運用性、再利用性、スケーラビリティを促進する。
+弱み::
+分散システムに伴う複雑さをすべて含む。
+多くの部品をもとに組み立てるため、組み立てが複雑になる可能性がある。
+コンポーネント間の連携が取れていなければ可用性、信頼性、パフォーマンスは抑制される。
+
+

@@ -1,0 +1,34 @@
+= ソフトウェア開発ナレッジ
+:toc: left
+:toclevels: 5
+:icons: font
+:source-highlighter: highlightjs
+
+== マインドマップ
+
+[plantuml]
+----
+include::./mindmap.pu[]
+----
+
+== 用語集
+
+include::./design_it/index.adoc[]
+
+== メモ
+
+* デプロイ戦略
+* https://www.ipa.go.jp/security/vuln/websecurity.html[安全なウェブサイトの作り方]
+* https://tannomizuki.hatenablog.com/entry/2015/08/15/092259[プロダクトマネージャーとプロジェクトマネージャーはどう違うのか]
+* https://www.jabba.cloud/20170613054635/[フィボナッチ工数見積は「完成させます！（徹夜で）」という無理ゲーによる弊害を最小化するプロジェクトマネージメント手法]
+* https://qiita.com/tmknom/items/08b69594e32a92bccee5[Webアプリケーションフレームワーク導入時に考慮すべき22の観点]
+* https://eh-career.com/engineerhub/entry/2019/01/08/103000[【46選】あのサービス・アプリのアーキテクチャ・プログラミング言語・フレームワークを大調査！〔2019年始版〕]
+* https://brevis.exblog.jp/28315223/[プロジェクトの進捗を計る「アーンド・スケジュール法」とは何か 〜 (1)その基本]
+
+* https://12factor.net/ja/[Twelve-Factor App]
+* https://www.publickey1.jp/blog/20/ipa_1.html[アジャイル開発の契約は「準委任」が適切、契約前にユーザーとベンダの共通理解が大事。IPAが「モデル契約書」やチェックリストなど公開。]
+* https://www.nozomisogo.gr.jp/archives/6576[LIP版「アジャイル開発向けソフトウェア開発委託契約書（準委任型）」 公開]
+* https://qiita.com/br_branch/items/bbbaba835b45e79efa5b[https://qiita.com/br_branch/items/bbbaba835b45e79efa5b]
+* https://speakerdeck.com/takaking22/project-management-in-agile-era[制御不能な時代のプロジェクトマネジメント / Project Management in Agile Era]
+* https://www.ryuzee.com/contents/blog/14552[新規事業とアジャイル]
+* https://www.scrumguides.org/docs/scrumguide/v2020/2020-Scrum-Guide-Japanese-2.0.pdf[スクラムガイド]
